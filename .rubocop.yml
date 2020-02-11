@@ -49,8 +49,6 @@ Style/ZeroLengthPredicate:
   Enabled: false
 Style/IfInsideElse:
   Enabled: false
-Style/ConditionalAssignment:
-  Enabled: false
 
 Layout/HashAlignment:
   EnforcedColonStyle: key
