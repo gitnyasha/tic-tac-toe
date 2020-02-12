@@ -1,51 +1,77 @@
 #!/usr/bin/env ruby
 
+def game(board)
+    puts " #{board[0]} | #{board[1]} | #{board[2]}"
+    puts "-------------"
+    puts " #{board[3]} | #{board[4]} | #{board[5]}"
+    puts "-------------"
+    puts " #{board[6]} | #{board[7]} | #{board[8]}"
+    puts "-------------"
+  end
+  
+  def win?(board, combination, one, two)
+    combination.each do |x|
+      if (board[x[0]] == 'X') && (board[x[1]] == 'X') && (board[x[2]] == 'X')
+        puts "#{one} wins"
+        return true
+      elsif (board[x[0]] == 'O') && (board[x[1]] == 'O') && (board[x[2]] == 'O')
+        puts "#{two} wins"
+        return true
+      end
+    end
+    false
+  end
 
-while true
-    puts "Player 1 choose between X and O"
-    player_one = gets.chomp
+  board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  combination = [
+      [0, 1, 2],
+      [3, 4, 5], 
+      [6, 7, 8], 
+      [0, 3, 6],
+      [1, 4, 7], 
+      [2, 5, 8], 
+      [0, 4, 8], 
+      [6, 4, 2]
+    ]
+  
+  one = ""
+  two = ""
 
-    puts "1 | 2 | 3"
-    puts "4 | 5 | 6"
-    puts "7 | 8 | 9"
-    puts "Type the number of the box you want to put your #{player_one}"
-    player_one = gets.chomp
-    puts "Your move is diplayed on the board"
-    puts "X | 2 | 3"
-    puts "4 | 5 | 6"
-    puts "7 | 8 | 9"
-    puts "Player 2 choose the box you want"
-    player_two = gets.chomp
-    puts "Your move is diplayed on the board"
-    puts "X | 2 | 3"
-    puts "4 | O | 6"
-    puts "7 | 8 | 9"
-    puts "Player 1 choose the box you want"
-    player_one = gets.chomp
-    puts "Your move is diplayed on the board"
-    puts "X | X | 3"
-    puts "4 | O | 6"
-    puts "7 | 8 | 9"
-    puts "Player 2 choose the box you want"
-    player_two = gets.chomp
-    puts "Your move is diplayed on the board"
-    puts "X | X | O"
-    puts "4 | O | 6"
-    puts "7 | 8 | 9"
-    puts "Player 1 choose the box you want"
-    player_one = gets.chomp
-    puts "Your move is diplayed on the board"
-    puts "X | X | O"
-    puts "X | O | 6"
-    puts "7 | 8 | 9"
-    puts "Player 2 choose the box you want"
-    player_two = gets.chomp
-    puts "Your move is diplayed on the board"
-    puts "X | X | O"
-    puts "X | O | 6"
-    puts "O | 8 | 9"
+  puts "Player one is X and Player two is O"
+  puts "Player one enter your name"
+  one = gets.chomp
+  puts "Player two enter your name"
+  two = gets.chomp
 
-    puts "Player 2 wins"
-    puts "Do you want to play again? Y/N"
-    break
-end
+  puts game(board)
+  game_is_running = true
+  loop do
+    if game_is_running
+      puts "#{one} pick a number to place your mark"
+    else
+      puts "#{two} pick a number to place your mark"
+    end
+    picked = gets.chomp
+    loop do
+      picked = picked.to_i
+      if board.any? picked
+        board[picked - 1] = if game_is_running
+          'X'
+        else
+          'O'
+        end
+        break
+      else
+        puts 'Already taken'
+        picked = gets.chomp
+      end
+    end
+    game_is_running = !game_is_running
+    puts game(board)
+    break if win?(board, combination, one, two)
+  
+    unless board.any?(Integer)
+      puts 'Draw!'
+      break
+    end
+  end
