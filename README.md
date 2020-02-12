@@ -120,9 +120,6 @@
 
 [rbl]: https://www.ruby-lang.org/en/
 [vsc]: https://code.visualstudio.com/
-[sow]: https://stackoverflow.com/
-[esw]: https://stackoverflow.com/users/829120/erik-skoglund
-[esa]: https://stackoverflow.com/questions/1489183/colorized-ruby-output
 [mvs]: https://www.microverse.org/
 [top]: https://www.theodinproject.com
 [tor]: https://www.theodinproject.com/courses/ruby-programming/lessons/oop
