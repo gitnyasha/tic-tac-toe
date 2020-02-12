@@ -111,11 +111,6 @@
     
 ## About the project
 
-+ Built using [Ruby v 2.6.X][rbl]
-+ All contributors used [VS Code][vsc] as IDE
-+ Big shout out to [stackoverflow][sow] user [Erik Skoglund][esw] for his [answer][esa] which helped us understand how to colorize ruby's terminal output.
-+ Git and Github were used for version control
-
 + This was build as part of [microverse][mvs]'s technical curriculum.
 + Based on [The Odin Project][top]'s Ruby Programing's [Project 1][tor]
 
