@@ -8,7 +8,7 @@ class Board
   end
 
   def move(game_is_running, picked)
-    if game_is_running = board[picked - 1]
+    board[picked - 1] = if game_is_running
       'X'
     else
       'O'
