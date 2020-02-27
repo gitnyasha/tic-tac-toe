@@ -8,11 +8,7 @@ class Board
   end
 
   def move(game_is_running, picked)
-    board[picked - 1] = if game_is_running
-      'X'
-    else
-      'O'
-    end
+    board[picked - 1] = game_is_running ? 'X' : 'O'
   end
 
   def win?
