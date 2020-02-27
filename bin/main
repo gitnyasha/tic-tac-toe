@@ -1,77 +1,77 @@
 #!/usr/bin/env ruby
 
-def game(board)
-    puts " #{board[0]} | #{board[1]} | #{board[2]}"
-    puts "-------------"
-    puts " #{board[3]} | #{board[4]} | #{board[5]}"
-    puts "-------------"
-    puts " #{board[6]} | #{board[7]} | #{board[8]}"
-    puts "-------------"
-  end
-  
-  def win?(board, combination, one, two)
-    combination.each do |x|
-      if (board[x[0]] == 'X') && (board[x[1]] == 'X') && (board[x[2]] == 'X')
-        puts "#{one} wins"
-        return true
-      elsif (board[x[0]] == 'O') && (board[x[1]] == 'O') && (board[x[2]] == 'O')
-        puts "#{two} wins"
-        return true
-      end
-    end
-    false
-  end
+require_relative '../lib/game_logic.rb'
 
-  board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-  combination = [
-      [0, 1, 2],
-      [3, 4, 5], 
-      [6, 7, 8], 
-      [0, 3, 6],
-      [1, 4, 7], 
-      [2, 5, 8], 
-      [0, 4, 8], 
-      [6, 4, 2]
-    ]
-  
-  one = ""
-  two = ""
 
+def game_board(board)
+  puts " #{board.board[0]} | #{board.board[1]} | #{board.board[2]}"
+  puts "-------------"
+  puts " #{board.board[3]} | #{board.board[4]} | #{board.board[5]}"
+  puts "-------------"
+  puts " #{board.board[6]} | #{board.board[7]} | #{board.board[8]}"
+  puts "-------------"
+end
+
+
+def moves(game_is_running, picked, board)
+  return false if picked == '0'
+
+  picked = picked.to_i
+  if board.board.any? picked
+    board.move(game_is_running, picked)
+  else
+    puts 'Already taken'
+    puts 'Pick again'
+    moves(game_is_running, gets.chomp, board)
+  end
+end
+
+
+def game_is_running
   puts "Player one is X and Player two is O"
   puts "Player one enter your name"
-  one = gets.chomp
+  one = Player.new(gets.chomp.capitalize)
   puts "Player two enter your name"
-  two = gets.chomp
-
-  puts game(board)
+  two = gets.chomp.capitalize
+  while two == one.name
+    puts 'You cant have the same names'
+    puts 'Write another name'
+    two = gets.chomp.capitalize
+  end
+  two = Player.new(two)
+  board = Board.new
+  puts game_board(board)
   game_is_running = true
   loop do
     if game_is_running
-      puts "#{one} pick a number to place your mark"
+      puts "#{one.name}, pick a number to place your mark"
     else
-      puts "#{two} pick a number to place your mark"
+      puts "#{two.name}, pick a number to place your mark"
     end
     picked = gets.chomp
-    loop do
-      picked = picked.to_i
-      if board.any? picked
-        board[picked - 1] = if game_is_running
-          'X'
-        else
-          'O'
-        end
-        break
-      else
-        puts 'Already taken'
-        picked = gets.chomp
-      end
-    end
+    break unless moves(game_is_running, picked, board)
+
     game_is_running = !game_is_running
-    puts game(board)
-    break if win?(board, combination, one, two)
-  
-    unless board.any?(Integer)
-      puts 'Draw!'
+    game_board(board)
+    win = board.win?
+    if win
+      if win == one
+        puts "#{one.name} has won!"
+      else
+        puts "#{two.name} has won!"
+      end
+      break
+    end
+    unless board.draw?
+      puts 'Its a Draw'
       break
     end
   end
+end
+
+loop do
+  game_is_running
+  puts 'Do you want to play again? select yes/no'
+  selected = gets.chomp.downcase
+  break if selected != 'yes'
+end
