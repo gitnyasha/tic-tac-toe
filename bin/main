@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require_relative '../lib/game_logic.rb'
+require_relative '../lib/players.rb'
 
 
 def game_board(board)
@@ -14,13 +15,11 @@ end
 
 
 def moves(game_is_running, picked, board)
-  return false if picked == '0'
-
   picked = picked.to_i
   if board.board.any? picked
     board.move(game_is_running, picked)
   else
-    puts 'Already taken'
+    puts 'You did not pick a valid number between 1-9 or its already taken' 
     puts 'Pick again'
     moves(game_is_running, gets.chomp, board)
   end
@@ -28,13 +27,17 @@ end
 
 
 def game_is_running
-  puts "Player one is X and Player two is O"
+  puts "Player one is X and Player two is O\n"
   puts "Player one enter your name"
   one = Player.new(gets.chomp.capitalize)
+  while one.name == ''
+    puts 'No blank names'
+    one = Player.new(gets.chomp.capitalize)
+  end
   puts "Player two enter your name"
   two = gets.chomp.capitalize
-  while two == one.name
-    puts 'You cant have the same names'
+  while two == one.name || two == ''
+    puts 'You cant have the same names or a blank name'
     puts 'Write another name'
     two = gets.chomp.capitalize
   end
@@ -55,7 +58,7 @@ def game_is_running
     game_board(board)
     win = board.win?
     if win
-      if win == one
+      if win == 'X'
         puts "#{one.name} has won!"
       else
         puts "#{two.name} has won!"
