@@ -23,4 +23,3 @@ class Board
     @board.any? Integer
   end
 end
-
