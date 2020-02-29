@@ -70,7 +70,6 @@
     What is the name of the second player?
     ```
     + In the game, the first player will be assigned X and the second player will be assigned O.
-    + Likewise, the first player will be assigned blue and the second player will be assigned violet.
       
     &nbsp;
 
