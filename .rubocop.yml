@@ -49,6 +49,8 @@ Style/ZeroLengthPredicate:
   Enabled: false
 Style/IfInsideElse:
   Enabled: false
+Style/StringLiteral:
+  Enabled: false
 
 Layout/HashAlignment:
   EnforcedColonStyle: key
