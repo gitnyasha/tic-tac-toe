@@ -50,7 +50,7 @@ Style/ZeroLengthPredicate:
 Style/IfInsideElse:
   Enabled: false
 Style/StringLiterals:
-  EnforcedStyle: never
+  Enabled: false
 
 Layout/HashAlignment:
   EnforcedColonStyle: key
