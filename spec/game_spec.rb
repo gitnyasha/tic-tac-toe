@@ -18,12 +18,12 @@ RSpec.describe Board do
   end
 
   describe "#win?" do
-    it 'Check if "X" has won' do
+    it "Check if X has won" do
       board.board = ["X", "X", "X", "O", "O", 6, 7, "O", 9]
       expect(board.win?).to eql("X")
     end
 
-    it 'Check if "Y" has won on the cross line' do
+    it "Check if Y has won on the cross line" do
       board.board = ["X", 2, "O", 4, "O", "X", "O", "X", 9]
       expect(board.win?).to eql("O")
     end
